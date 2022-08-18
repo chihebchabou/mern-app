@@ -1,58 +1,47 @@
 import {
   ADD_CONTACT,
   CLEAR_CURRENT,
+  CONTACT_ERROR,
   DELETE_CONTACT,
+  GET_CONTACTS,
   SET_CURRENT,
   UPDATE_CONTACT,
 } from '../actions/types';
 
 const initialState = {
-  contacts: [
-    {
-      id: 1,
-      name: 'Jill Johnson',
-      email: 'jill@gmail.com',
-      phone: '111-111-1111',
-      type: 'personal',
-    },
-    {
-      id: 2,
-      name: 'Sara Watson',
-      email: 'sara@gmail.com',
-      phone: '222-222-2222',
-      type: 'personal',
-    },
-    {
-      id: 3,
-      name: 'Harry White',
-      email: 'harry@gmail.com',
-      phone: '333-333-3333',
-      type: 'professional',
-    },
-  ],
+  contacts: [],
   current: null,
 };
 
 const contactReducer = (state = initialState, { type, payload }) => {
   switch (type) {
+    case GET_CONTACTS:
+      return {
+        ...state,
+        contacts: payload,
+        loading: false,
+      };
     case ADD_CONTACT:
       return {
         ...state,
         contacts: [...state.contacts, payload],
+        loading: false,
       };
 
     case UPDATE_CONTACT:
       return {
         ...state,
         contacts: state.contacts.map(contact =>
-          contact.id === payload.id ? payload : contact
+          contact._id === payload._id ? payload : contact
         ),
+        loading: false,
       };
 
     case DELETE_CONTACT:
       return {
         ...state,
-        contacts: state.contacts.filter(contact => contact.id !== payload),
+        contacts: state.contacts.filter(contact => contact._id !== payload),
+        loading: false,
       };
 
     case SET_CURRENT:
@@ -65,6 +54,12 @@ const contactReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         current: null,
+      };
+
+    case CONTACT_ERROR:
+      return {
+        ...state,
+        error: payload,
       };
     default:
       return state;

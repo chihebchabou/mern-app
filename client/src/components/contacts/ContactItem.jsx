@@ -7,11 +7,11 @@ import {
 } from '../../actions/contactActions';
 
 const ContactItem = ({ contact }) => {
-  const { id, name, email, phone, type } = contact;
+  const { _id, name, email, phone, type } = contact;
   const dispatch = useDispatch();
 
   const onDelete = () => {
-    dispatch(deleteContact(id));
+    dispatch(deleteContact(_id));
     dispatch(clearCurrent());
   };
 

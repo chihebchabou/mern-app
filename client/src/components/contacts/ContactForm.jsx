@@ -64,7 +64,7 @@ const ContactForm = () => {
         {current ? 'Edit' : 'Add'} Contact
       </h2>
       <div className="mb-3">
-        <label for="name" className="form-label">
+        <label htmlFor="name" className="form-label">
           Name
         </label>
         <input
@@ -79,7 +79,7 @@ const ContactForm = () => {
         />
       </div>
       <div className="mb-3">
-        <label for="email" className="form-label">
+        <label htmlFor="email" className="form-label">
           Email address
         </label>
         <input
@@ -94,7 +94,7 @@ const ContactForm = () => {
         />
       </div>
       <div className="mb-3">
-        <label for="phone" className="form-label">
+        <label htmlFor="phone" className="form-label">
           Phone
         </label>
         <input
@@ -130,7 +130,7 @@ const ContactForm = () => {
         />
         Personal
       </div>
-      <div class="d-grid gap-2">
+      <div className="d-grid gap-2">
         <button type="submit" className="btn btn-primary">
           {current ? 'Update' : 'Add'} Contact
         </button>

@@ -1,7 +1,44 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { logout } from '../../actions/authActions';
 
 const Navbar = () => {
+  const { isAuthenticated, user } = useSelector(state => state.authReducer);
+  const dispatch = useDispatch();
+
+  const onLogout = () => {
+    dispatch(logout());
+  };
+
+  const authLinks = (
+    <Fragment>
+      <li className="nav-item">
+        <span className="nav-link">Hello {user && user.name}</span>
+      </li>
+      <li className="nav-item">
+        <a className="nav-link" href="#!" onClick={onLogout}>
+          Logout
+        </a>
+      </li>
+    </Fragment>
+  );
+
+  const guestLinks = (
+    <Fragment>
+      <li className="nav-item">
+        <Link className="nav-link" aria-current="page" to="/register">
+          Register
+        </Link>
+      </li>
+      <li className="nav-item">
+        <Link className="nav-link" to="/login">
+          Login
+        </Link>
+      </li>
+    </Fragment>
+  );
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">
@@ -21,16 +58,7 @@ const Navbar = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
-            <li className="nav-item">
-              <Link className="nav-link" aria-current="page" to="/">
-                Home
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/about">
-                About
-              </Link>
-            </li>
+            {isAuthenticated ? authLinks : guestLinks}
           </ul>
         </div>
       </div>
